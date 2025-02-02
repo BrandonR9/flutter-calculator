@@ -12,7 +12,7 @@ class CalculatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Calculator by Your Name', // Replace with your name
+      title: 'Simple Calculator Application',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -64,20 +64,20 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculator by Your Name')), // Replace with your name
+      appBar: AppBar(title: const Text('Simple Calculator Application')), 
       body: Column(
         children: [
           Expanded(
             child: Container(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.center,
               padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(_expression, style: const TextStyle(fontSize: 32)),
+                  Text(_expression, style: const TextStyle(fontSize: 50)),
                   const SizedBox(height: 10),
-                  Text(_result, style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.blue)),
+                  Text(_result, style: const TextStyle(fontSize: 58, fontWeight: FontWeight.bold, color: Colors.blue)),
                 ],
               ),
             ),
@@ -90,10 +90,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   Widget _buildCalculatorButtons() {
     final buttons = [
-      ['C', 'x²', '%', '/'], // Added x² and % to first row
-      ['7', '8', '9', '*'],
-      ['4', '5', '6', '-'],
-      ['1', '2', '3', '+'],
+      ['C', 'x²', ' % ', ' / '], // Added x² and % to first row
+      ['7', '8', '9', ' * '],
+      ['4', '5', '6', ' - '],
+      ['1', '2', '3', ' + '],
       ['0', '.', '=', ''], // Adjusted row to maintain balance
     ];
 
