@@ -12,7 +12,7 @@ class CalculatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Simple Calculator Application',
+      title: 'Calculator by Your Name', // Replace with your name
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -47,6 +47,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
+      } else if (value == 'x²') {
+        try {
+          final num = double.parse(_expression);
+          _expression = '$num²';
+          _result = '= ${num * num}';
+        } catch (e) {
+          _result = 'Error';
+        }
       } else {
         _expression += value;
       }
@@ -56,21 +64,20 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Simple Calculator Application')),
+      appBar: AppBar(title: const Text('Calculator by Your Name')), // Replace with your name
       body: Column(
         children: [
           Expanded(
             child: Container(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomRight,
               padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 100),
-                  Text(_expression, style: const TextStyle(fontSize: 50)),
-                  
-                  Text(_result, style: const TextStyle(fontSize: 58, fontWeight: FontWeight.bold, color: Colors.blue)),
+                  Text(_expression, style: const TextStyle(fontSize: 32)),
+                  const SizedBox(height: 10),
+                  Text(_result, style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.blue)),
                 ],
               ),
             ),
@@ -83,10 +90,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   Widget _buildCalculatorButtons() {
     final buttons = [
-      ['7', '8', '9', ' / '],
-      ['4', '5', '6', ' * '],
-      ['1', '2', '3', ' - '],
-      ['C', '0', '=', ' + '],
+      ['C', 'x²', '%', '/'], // Added x² and % to first row
+      ['7', '8', '9', '*'],
+      ['4', '5', '6', '-'],
+      ['1', '2', '3', '+'],
+      ['0', '.', '=', ''], // Adjusted row to maintain balance
     ];
 
     return Column(
@@ -94,7 +102,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: row.map((btnText) {
-            return _buildButton(btnText);
+            return btnText.isNotEmpty ? _buildButton(btnText) : const SizedBox(width: 80, height: 80);
           }).toList(),
         );
       }).toList(),
@@ -110,7 +118,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         child: ElevatedButton(
           onPressed: () => _onButtonPressed(text),
           style: ElevatedButton.styleFrom(
-            backgroundColor: text == 'C' ? Colors.red : (text == '=' ? Colors.green : Colors.blue),
+            backgroundColor: text == 'C'
+                ? Colors.red
+                : (text == '=' ? Colors.green : (text == 'x²' || text == '%') ? Colors.orange : Colors.blue),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
           child: Text(text, style: const TextStyle(fontSize: 28, color: Colors.white)),
